@@ -1,0 +1,6 @@
+CREATE DATABASE IF NOT EXISTS videohosting;
+USE videohosting;
+
+CREATE USER IF NOT EXISTS 'sharphurt'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON videohosting.* TO 'sharphurt'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
