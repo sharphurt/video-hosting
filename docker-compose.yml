@@ -11,7 +11,9 @@ services:
       - db
     environment:
       - SERVER_PORT=8181
-      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:33061/videohosting?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:33061/videohosting?useUnicode=true&serverTimezone=UTC&useSSL=false&verifyServerCertificate=false&allowPublicKeyRetrieval=true
+    volumes:
+      - ./storage/videos:/storage/videos
 
   db:
     image: mysql

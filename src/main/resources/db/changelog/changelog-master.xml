@@ -9,10 +9,13 @@
             <column name="id" type="uuid">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="title" type="varchar(255)">
+            <column name="filename" type="varchar(512)">
                 <constraints nullable="false"/>
             </column>
-            <column name="filename" type="varchar(512)">
+            <column name="path" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="extension" type="varchar(10)">
                 <constraints nullable="false"/>
             </column>
             <column name="processing" type="boolean" defaultValueBoolean="false">

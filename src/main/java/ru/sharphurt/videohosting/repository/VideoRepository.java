@@ -9,8 +9,6 @@ import java.util.UUID;
 public interface VideoRepository extends CrudRepository<VideoEntity, UUID> {
 
     VideoEntity save(VideoEntity entity);
-
     Optional<VideoEntity> findById(UUID uuid);
-
     void deleteById(UUID uuid);
 }

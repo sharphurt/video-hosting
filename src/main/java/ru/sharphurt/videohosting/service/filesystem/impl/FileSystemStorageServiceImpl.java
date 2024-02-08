@@ -1,20 +1,19 @@
-package ru.sharphurt.videohosting.service.filesystem;
+package ru.sharphurt.videohosting.service.filesystem.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.sharphurt.videohosting.dto.VideoFileInformationDto;
 import ru.sharphurt.videohosting.exceptions.CorruptedFileException;
-import ru.sharphurt.videohosting.exceptions.FileWriteException;
+import ru.sharphurt.videohosting.exceptions.FileNotSavedException;
 import ru.sharphurt.videohosting.exceptions.UnacceptableFileTypeException;
+import ru.sharphurt.videohosting.service.filesystem.StorageService;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -28,36 +27,44 @@ public class FileSystemStorageServiceImpl implements StorageService {
     @Value("${filestorage.upload-base-path}")
     private String baseFilepath;
 
-    @Value("${filestorage.acceptable-filetypes}")
-    private List<String> acceptableExtensions;
+    @Value("${filestorage.acceptable-filetype}")
+    private String acceptableExtension;
+
+    private final String serviceName = "file-system-service";
 
     @Override
     public VideoFileInformationDto save(MultipartFile file) {
         log.info("File %s start saving".formatted(file.getOriginalFilename()));
 
+        var originalName = file.getOriginalFilename();
+        var extension = FilenameUtils.getExtension(originalName);
+        var filename = FilenameUtils.getBaseName(originalName);
+
         if (file.isEmpty()) {
-            throw new CorruptedFileException("File is empty");
+            throw new CorruptedFileException(serviceName, originalName);
         }
 
-        var extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-        var filename = StringUtils.getFilename(file.getOriginalFilename());
-
-        if (isNull(extension) || !acceptableExtensions.contains(extension.toLowerCase(Locale.ROOT))) {
-            throw new UnacceptableFileTypeException("%s extension is not supported".formatted(extension));
+        if (isNull(extension) || !acceptableExtension.equalsIgnoreCase(extension)) {
+            throw new UnacceptableFileTypeException(serviceName, originalName);
         }
 
         var uuid = UUID.randomUUID();
-        var path = Path.of(baseFilepath, uuid + "." + extension.toLowerCase(Locale.ROOT));
+        var path = getLocalFilePath(uuid);
 
         try {
             file.transferTo(path);
         } catch (IOException e) {
-            throw new FileWriteException(e.getMessage());
+            throw new FileNotSavedException(serviceName, e.getMessage());
         }
 
-        log.info("File %s saved with UUID: %s".formatted(file.getOriginalFilename(), uuid));
+        log.info("File %s saved with UUID: %s".formatted(originalName, uuid));
 
         return VideoFileInformationDto.builder().id(uuid).path(path).filename(filename).extension(extension).build();
+    }
+
+    @Override
+    public Path getLocalFilePath(UUID uuid) {
+        return Path.of(baseFilepath, uuid + "." + acceptableExtension);
     }
 
     @Override
