@@ -1,5 +1,6 @@
 package ru.sharphurt.videohosting.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,9 +13,14 @@ import java.util.UUID;
 public class VideoFileInformationDto {
 
     private UUID id;
+
+    @JsonIgnore
     private Path path;
-    private String filename;
+
+    @JsonIgnore
     private String extension;
+
+    private String filename;
 
     private Boolean processing;
 

@@ -18,16 +18,6 @@ public class FfmpegConfig {
     @Value("${ffprobe.path}")
     private String ffprobePath;
 
-    @Bean(name = "ffmpeg")
-    public FFmpeg ffmpeg() throws IOException {
-        return new FFmpeg(ffmpegPath);
-    }
-
-    @Bean(name = "ffprobe")
-    public FFprobe ffprobe() throws IOException {
-        return new FFprobe(ffprobePath);
-    }
-
     @Bean(name = "ffmpegExecutor")
     public FFmpegExecutor ffmpegExecutor() throws IOException {
         var ffmpeg = new FFmpeg(ffmpegPath);

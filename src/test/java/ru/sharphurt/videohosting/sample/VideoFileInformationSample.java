@@ -17,4 +17,9 @@ public class VideoFileInformationSample {
             .width(100)
             .height(100)
             .build();
+
+    public static ResizeVideoRequestDto resizeVideoRequestDto_notValid = ResizeVideoRequestDto.builder()
+            .width(10)
+            .height(10)
+            .build();
 }

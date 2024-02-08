@@ -1,21 +1,20 @@
 package ru.sharphurt.videohosting.dto.req;
 
+import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import lombok.Data;
 import ru.sharphurt.videohosting.validation.constraints.EvenNumber;
-
-import javax.validation.constraints.Min;
 
 @Data
 @Builder
 public class ResizeVideoRequestDto {
 
-    @Min(20)
-    @EvenNumber
+    @Min(value = 20, message = "Width cannot be less then 20 pixels")
+    @EvenNumber(message = "Width should be even number")
     private Integer width;
 
-    @Min(20)
-    @EvenNumber
+    @Min(value = 20, message = "Height cannot be less then 20 pixels")
+    @EvenNumber(message = "Height should be even number")
     private Integer height;
 }
 

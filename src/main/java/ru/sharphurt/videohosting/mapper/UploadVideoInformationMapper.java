@@ -13,7 +13,7 @@ import java.nio.file.Path;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UploadVideoInformationMapper {
 
-    UploadVideoInformationMapper VIDEO_INFORMATION_TO_ENTITY_MAPPER = Mappers.getMapper(UploadVideoInformationMapper.class);
+    UploadVideoInformationMapper VIDEO_ENTITY_MAPPER = Mappers.getMapper(UploadVideoInformationMapper.class);
 
     @Mapping(target = "processing", source = "processing", defaultValue = "false")
     @Mapping(target = "path", source = "path", qualifiedByName = "pathToString")

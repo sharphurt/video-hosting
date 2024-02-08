@@ -9,10 +9,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import ru.sharphurt.videohosting.exceptions.CorruptedFileException;
 import ru.sharphurt.videohosting.exceptions.UnacceptableFileTypeException;
-import ru.sharphurt.videohosting.service.filesystem.impl.FileSystemStorageServiceImpl;
+import ru.sharphurt.videohosting.service.filesystem.SaveToStorageService;
 
 import java.nio.file.Files;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ru.sharphurt.videohosting.sample.MultipartFileSample.*;
@@ -21,12 +20,12 @@ import static ru.sharphurt.videohosting.sample.MultipartFileSample.*;
 public class FileSystemStorageServiceTest {
 
     @InjectMocks
-    private FileSystemStorageServiceImpl service;
+    private SaveToStorageService service;
 
     @BeforeEach
     public void setUp() {
         ReflectionTestUtils.setField(service, "baseFilepath", "/storage/videos/");
-        ReflectionTestUtils.setField(service, "acceptableExtensions", List.of("mp4"));
+        ReflectionTestUtils.setField(service, "acceptableExtension", "mp4");
     }
 
     @Test

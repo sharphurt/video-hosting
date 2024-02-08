@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class BaseException extends RuntimeException {
 
-    public String message;
+    private String message;
 
     public BaseException(String message) {
         super(message);
