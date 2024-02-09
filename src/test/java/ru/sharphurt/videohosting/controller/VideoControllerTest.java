@@ -164,11 +164,32 @@ public class VideoControllerTest extends BaseSpringContextTest {
                 .build();
 
         var resizeRequestJson = objectMapper.writeValueAsString(resizeVideoRequestDto);
+
         mvc.perform(patch("/file/" + uuid)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(resizeRequestJson));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(resizeRequestJson));
+
         mvc.perform(get("/file/" + uuid))
                 .andExpect(status().is(200))
                 .andExpect(content().json(objectMapper.writeValueAsString(expectedResponse)));
+    }
+
+    @Test
+    public void deleteVideo_successTest() throws Exception {
+        var response = mvc.perform(multipart("/file").file(multipartFile_correct))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        var uuid = objectMapper.readValue(response, Map.class).get("id").toString();
+        var expectedMessage = "Exception during request execution: get-video-information-database-service | Video { %s } not found".formatted(uuid);
+
+        mvc.perform(delete("/file/" + uuid))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("success").value("true"));
+
+        mvc.perform(get("/file/" + uuid))
+                .andExpect(status().is(404))
+                .andExpect(jsonPath("error").value(expectedMessage));
     }
 }
