@@ -17,7 +17,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.sharphurt.videohosting.sample.VideoFileInformationSample.resizeVideoRequestDto;
+import static ru.sharphurt.videohosting.sample.ResizeVideoDtoSample.resizeVideoRequestDto;
 import static ru.sharphurt.videohosting.sample.VideoFileInformationSample.videoFileInformationDto;
 
 @ExtendWith(MockitoExtension.class)

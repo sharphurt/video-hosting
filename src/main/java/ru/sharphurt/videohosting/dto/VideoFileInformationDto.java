@@ -13,6 +13,8 @@ import java.util.UUID;
 public class VideoFileInformationDto {
 
     private UUID id;
+    private String filename;
+    private Boolean processing;
 
     @JsonIgnore
     private Path path;
@@ -20,22 +22,6 @@ public class VideoFileInformationDto {
     @JsonIgnore
     private String extension;
 
-    private String filename;
-
-    private Boolean processing;
-
     @Nullable
     private Boolean processingSuccess;
-
-    @Override
-    public String toString() {
-        return "VideoFileInformationDto {\n" +
-                "   id: %s, \n".formatted(id) +
-                "   path: %s, \n".formatted(path) +
-                "   filename: %s, \n".formatted(filename) +
-                "   extension: %s, \n".formatted(extension) +
-                "   processing: %s, \n".formatted(processing) +
-                "   processingSuccess: %s, \n".formatted(processingSuccess) +
-                "}";
-    }
 }

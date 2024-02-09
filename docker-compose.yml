@@ -18,7 +18,7 @@ services:
       - ./ffmpeg/ffprobe:/ffmpeg/ffprobe
 
   db:
-    image: mysql
+    image: mysql:8.3.0
     environment:
       MYSQL_USER: sharphurt
       MYSQL_PASSWORD: password

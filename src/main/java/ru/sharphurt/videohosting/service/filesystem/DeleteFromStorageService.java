@@ -28,7 +28,7 @@ public class DeleteFromStorageService {
         try {
             Files.delete(info.getPath());
         } catch (IOException e) {
-            throw new FileNotDeletedException(serviceName, info.getPath().toString());
+            throw new FileNotDeletedException(serviceName, info.getPath().toString(), e);
         }
 
         log.info(LOG_FILE_DELETED.formatted(info.getId()));

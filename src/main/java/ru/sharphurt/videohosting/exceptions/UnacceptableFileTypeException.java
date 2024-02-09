@@ -5,6 +5,10 @@ import static ru.sharphurt.videohosting.constants.AliasConstants.EXCEPTION_UNACC
 public class UnacceptableFileTypeException extends BaseException {
 
     public UnacceptableFileTypeException(String methodName, String filename) {
-        super(EXCEPTION_UNACCEPTABLE_TYPE.formatted(methodName, filename));
+        super(EXCEPTION_UNACCEPTABLE_TYPE.formatted(methodName, filename), new Throwable());
+    }
+
+    public UnacceptableFileTypeException(String methodName, String filename, Throwable e) {
+        super(EXCEPTION_UNACCEPTABLE_TYPE.formatted(methodName, filename), e);
     }
 }

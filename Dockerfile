@@ -1,10 +1,10 @@
-FROM openjdk:21 as builder
-WORKDIR /app
-COPY . /app/.
-RUN ./mvnw -f /app/pom.xml clean package -D maven.test.skip=true
+FROM gradle:8.6.0-jdk21 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build --no-daemon
 
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
-COPY --from=builder /app/target/*.jar /app/*.jar
+FROM openjdk:21
 EXPOSE 8181
-ENTRYPOINT ["java", "-jar", "/app/*.jar"]
+RUN mkdir /app
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/*.jar
+ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap","-jar", "/app/*.jar"]

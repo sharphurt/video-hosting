@@ -8,6 +8,10 @@ import static ru.sharphurt.videohosting.constants.AliasConstants.EXCEPTION_CORRU
 public class CorruptedFileException extends BaseException {
 
     public CorruptedFileException(String methodName, String filename) {
-        super(EXCEPTION_CORRUPTED_FILE.formatted(methodName, filename));
+        super(EXCEPTION_CORRUPTED_FILE.formatted(methodName, filename), new Throwable());
+    }
+
+    public CorruptedFileException(String methodName, String filename, Throwable e) {
+        super(EXCEPTION_CORRUPTED_FILE.formatted(methodName, filename), e);
     }
 }

@@ -40,7 +40,8 @@ public class ResizeVideoControllerService {
                 .subscribe(
                         result -> onFfmpegFinishJob(uuid, result),
                         throwable -> {
-                            throw new VideoProcessingException(serviceName, videoInformation.getId().toString());
+                            onFfmpegFinishJob(uuid, false);
+                            throw new VideoProcessingException(serviceName, videoInformation.getId().toString(), throwable);
                         });
 
         log.info(LOG_RESIZE_VIDEO_REQUEST_PROCESSED.formatted(id));

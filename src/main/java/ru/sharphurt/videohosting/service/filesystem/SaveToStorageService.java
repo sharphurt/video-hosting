@@ -53,7 +53,7 @@ public class SaveToStorageService {
         try {
             file.transferTo(path);
         } catch (IOException e) {
-            throw new FileNotSavedException(serviceName, e.getMessage());
+            throw new FileNotSavedException(serviceName, e.getMessage(), e);
         }
 
         log.info(LOG_FILE_SAVED.formatted(uuid));

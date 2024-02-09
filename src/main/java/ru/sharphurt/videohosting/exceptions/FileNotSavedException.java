@@ -8,6 +8,10 @@ import static ru.sharphurt.videohosting.constants.AliasConstants.EXCEPTION_FILE_
 public class FileNotSavedException extends BaseException {
 
     public FileNotSavedException(String methodName, String filename) {
-        super(EXCEPTION_FILE_NOT_SAVED.formatted(methodName, filename));
+        super(EXCEPTION_FILE_NOT_SAVED.formatted(methodName, filename), new Throwable());
+    }
+
+    public FileNotSavedException(String methodName, String filename, Throwable e) {
+        super(EXCEPTION_FILE_NOT_SAVED.formatted(methodName, filename), e);
     }
 }

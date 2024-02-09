@@ -46,7 +46,7 @@ public class ResizeVideoFfmpegService {
 
             return true;
         } catch (Exception e) {
-            throw new VideoProcessingException(serviceName, videoFile.getPath().toString());
+            throw new VideoProcessingException(serviceName, videoFile.getPath().toString(), e);
         }
     }
 }

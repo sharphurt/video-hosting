@@ -23,16 +23,4 @@ public class VideoEntity {
     private String extension;
     private Boolean processing = false;
     private Boolean processingSuccess = null;
-
-    @Override
-    public String toString() {
-        return "VideoEntity {\n" +
-                "   id: %s, \n".formatted(id) +
-                "   path: %s, \n".formatted(path) +
-                "   filename: %s, \n".formatted(filename) +
-                "   extension: %s, \n".formatted(extension) +
-                "   processing: %s, \n".formatted(processing) +
-                "   processingSuccess: %s, \n".formatted(processingSuccess) +
-                "}";
-    }
 }

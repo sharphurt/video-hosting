@@ -9,7 +9,7 @@ public class ControllerErrorResponse {
 
     private String error;
 
-    public static ControllerErrorResponse fromException(RuntimeException e) {
+    public static ControllerErrorResponse fromException(Throwable e) {
         return ControllerErrorResponse.builder().error(e.getMessage()).build();
     }
 }

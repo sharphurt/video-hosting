@@ -8,6 +8,10 @@ import static ru.sharphurt.videohosting.constants.AliasConstants.EXCEPTION_FILE_
 public class FileNotFoundException extends BaseException {
 
     public FileNotFoundException(String methodName, String filename) {
-        super(EXCEPTION_FILE_NOT_FOUND.formatted(methodName, filename));
+        super(EXCEPTION_FILE_NOT_FOUND.formatted(methodName, filename), new Throwable());
+    }
+
+    public FileNotFoundException(String methodName, String filename, Throwable e) {
+        super(EXCEPTION_FILE_NOT_FOUND.formatted(methodName, filename), e);
     }
 }

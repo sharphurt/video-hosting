@@ -32,5 +32,4 @@ public class AliasConstants {
     public static final String EXCEPTION_FILE_NOT_DELETED = EXCEPTION_MESSAGE_BASE + "File { %s } was not deleted on disk";
     public static final String EXCEPTION_VIDEO_NOT_FOUND = EXCEPTION_MESSAGE_BASE + "Video { %s } not found";
     public static final String EXCEPTION_VIDEO_PROCESSING = EXCEPTION_MESSAGE_BASE + "Video { %s } has not been processed";
-
 }

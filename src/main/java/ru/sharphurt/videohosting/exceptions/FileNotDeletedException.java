@@ -8,6 +8,10 @@ import static ru.sharphurt.videohosting.constants.AliasConstants.EXCEPTION_FILE_
 public class FileNotDeletedException extends BaseException {
 
     public FileNotDeletedException(String methodName, String filename) {
-        super(EXCEPTION_FILE_NOT_DELETED.formatted(methodName, filename));
+        super(EXCEPTION_FILE_NOT_DELETED.formatted(methodName, filename), new Throwable());
+    }
+
+    public FileNotDeletedException(String methodName, String filename, Throwable e) {
+        super(EXCEPTION_FILE_NOT_DELETED.formatted(methodName, filename), e);
     }
 }
