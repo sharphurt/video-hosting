@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet logicalFilePath="chanelog-master" id="changelog-master" author="sharphurt">
+        <createTable tableName="video">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="filename" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="extension" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="processing" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="processingSuccess" type="boolean" defaultValue="null">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

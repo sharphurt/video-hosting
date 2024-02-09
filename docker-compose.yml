@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  backend:
+    image: backend:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8181"
+    depends_on:
+      - db
+    environment:
+      - SERVER_PORT=8181
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:33061/videohosting?useUnicode=true&serverTimezone=UTC&useSSL=false&verifyServerCertificate=false&allowPublicKeyRetrieval=true
+    volumes:
+      - ./storage/videos:/storage/videos
+      - ./ffmpeg/ffmpeg:/ffmpeg/ffmpeg
+      - ./ffmpeg/ffprobe:/ffmpeg/ffprobe
+
+  db:
+    image: mysql:8.3.0
+    environment:
+      MYSQL_USER: sharphurt
+      MYSQL_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+    command: --init-file /data/application/init.sql
+    ports:
+      - "33061:3306"
+    volumes:
+      - ./src/main/resources/db/init.sql:/data/application/init.sql
+      - ./dbdata:/var/lib/mysql
+      - ./conf-mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+    restart: unless-stopped
+
+volumes:
+  db-data:
