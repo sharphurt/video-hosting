@@ -1,7 +1,7 @@
-FROM gradle:8.6.0-jdk17 AS build
+FROM gradle:7.6.4-jdk17 AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle build --no-daemon -x test
+RUN gradle clean build --no-daemon -x test
 
 FROM openjdk:17
 EXPOSE 8181
